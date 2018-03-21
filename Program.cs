@@ -63,7 +63,8 @@ namespace project_student1
     }//end the class student 
     class Intial
     {
-        student[] st=new student[30];
+        student[] st = new student[30];
+          public  int itemcount = 0;
         public void displaymenu()
         {
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
@@ -79,7 +80,7 @@ namespace project_student1
             //create an array to store only 30 students'records for testing.
             int choice;
             string confirm;
-
+           
             do
             {
                 Console.Write("Enter your choice(1-8):");
@@ -89,11 +90,11 @@ namespace project_student1
                 {
 
                     case 1:
-                        add(ref student.itemcount);
+                        add(ref itemcount);
                         break;
-                    //case 2:
-                    //    delete(st, ref itemcount);
-                    //    break;
+                    case 2:
+                        delete(st, ref itemcount);
+                        break;
                     //case 3:
                     //    update(st, itemcount);
                     //    break;
@@ -121,14 +122,11 @@ namespace project_student1
                 Console.Write("Press y or Y to continue:");
 
                 confirm = Console.ReadLine().ToString();
-
             } while (confirm == "y" || confirm == "Y");
         }//end the desplay menu
-
-
         public void add(ref int itemcount)
         {
-           itemcount++;
+          
             Console.WriteLine(itemcount);
             Console.Write("Enter student's ID:");
            int stnumber= int.Parse(Console.ReadLine());
@@ -160,18 +158,69 @@ namespace project_student1
             float final = float.Parse(Console.ReadLine());
             
              float total = quizz1 + quizz2 + assigment + midterm +final;
-            //++this.itemcount;
             st[itemcount] = new student(stnumber, stage, stname, sex, quizz1, quizz2, assigment, midterm, final, total);
-        }
-       public void print()
+            itemcount++;
+        }//end the added information 
+        public int search(student[] st, int id, int itemcount)
         {
-            Console.WriteLine(student.itemcount);
-            for (int i = 0; i < student.itemcount; i++)
-            {
-                st[i].printInfo();
+            int found = -1;
+            for (int i = 0; i < itemcount && found == -1; i++)
+            { 
+                if (st[i].stnumber == id) found = i;
+                else found = -1;
             }
+            return found;
+        }//end the search function 
+        static void clean(student[] st, int index)
+        {
+            st[index].stnumber = 0;
+            st[index].stage = 0;
+            st[index].stname = null;
+            st[index].sex = null;
+            st[index].quizz1 = 0;
+            st[index].quizz2 = 0;
+            st[index].assigment = 0;
+            st[index].midterm = 0;
+            st[index].final = 0;
+            st[index].total = 0;
+
         }
-        
+        public void delete(student[] st, ref int itemcount)
+        {
+
+            int id;
+            int index;
+            if (itemcount > 0)
+            {
+                Console.Write("Enter student's ID:");
+                id = int.Parse(Console.ReadLine());
+                index = search(st, id, itemcount);
+                if ((index != -1) && (itemcount != 0))
+                {
+                    if (index == (itemcount - 1))
+                    {
+                        clean(st, index);
+                        this.itemcount = itemcount--;
+                        Console.WriteLine("The record was deleted.");
+                    }
+                    else
+                    {
+                        for (int i = index; i < itemcount - 1; i++)
+                        {
+                            st[i] = st[i + 1];
+                            clean(st, itemcount);
+                            --itemcount;
+                        }
+                    }
+                }
+                else Console.WriteLine("The record doesn't exist.Check the ID and try again.");
+            }
+            else Console.WriteLine("No record to delete");
+        }
+        public void print()
+        {
+            st[0].printInfo();
+        }
     } //end the intial student 
     class Program
     {
