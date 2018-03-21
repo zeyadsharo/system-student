@@ -101,12 +101,12 @@ namespace project_student1
                     case 4:
                         viewall(st, itemcount);
                         break;
-                    //case 5:
-                    //    average(st, itemcount);
-                    //    break;
-                    //case 6:
-                    //    showmax(st, itemcount);
-                    //    break;
+                    case 5:
+                        average(st, itemcount);
+                        break;
+                    case 6:
+                        showmax(st, itemcount);
+                        break;
                     //case 7:
                     //    showmin(st, itemcount);
                     //    break;
@@ -291,6 +291,42 @@ namespace project_student1
                 st[index].total = st[index].quizz1 + st[index].quizz2 + st[index].assigment + st[index].midterm + st[index].final + st[index].stage;
             }
             else Console.WriteLine("The record deosn't exits.Check the ID and try again.");
+        }
+        public void average(student[] st, int itemcount)
+        {
+            int id;
+            float avg = 0;
+            Console.Write("Enter students'ID:");
+            id = int.Parse(Console.ReadLine());
+            int index = search(st, id, itemcount);
+            if (index != -1 && itemcount > 0)
+            {
+                st[index].total = st[index].quizz1 + st[index].quizz2 + st[index].assigment + st[index].midterm + st[index].final;
+                avg = st[index].total / 5;
+            }
+            Console.WriteLine("The average score is {0}.", avg);
+        }
+        public void showmax(student[] st, int itemcount)
+        {
+            float max = st[0].total;
+            int index = 0;
+            Console.WriteLine(itemcount);
+            if (itemcount >= 2)
+            {
+                for (int j = 0; j < itemcount - 1; ++j)
+                    if (max < st[j + 1].total)
+                    {
+                        max = st[j + 1].total;
+                        index = j + 1;
+                    }
+            }
+            else if (itemcount == 1)
+            {
+                index = 0;
+                max = st[0].total;
+            }
+            else Console.WriteLine("Not record found!");
+            if (index != -1) Console.WriteLine("The student with ID:{0} gets the highest score {1}.", st[index].stnumber, max);
         }
         public void print()
         {
