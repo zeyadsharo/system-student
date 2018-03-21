@@ -45,14 +45,6 @@ namespace project_student1
             this.final = final;
             this.total = total;
         }
-
-
-
-
-
-
-
-
     }//end the class student 
     class Program
     {
