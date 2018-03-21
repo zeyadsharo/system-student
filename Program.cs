@@ -107,15 +107,15 @@ namespace project_student1
                     case 6:
                         showmax(st, itemcount);
                         break;
-                    //case 7:
-                    //    showmin(st, itemcount);
-                    //    break;
-                    //case 8:
-                    //    find(st, itemcount);
-                    //    break;
-                    //case 9:
-                    //    bubblesort(st, itemcount);
-                    //    break;
+                    case 7:
+                        showmin(st, itemcount);
+                        break;
+                    case 8:
+                        find(st, itemcount);
+                        break;
+                    case 9:
+                        bubblesort(st, itemcount);
+                        break;
 
                     default: Console.WriteLine("invalid"); break;
                 }
@@ -327,6 +327,56 @@ namespace project_student1
             }
             else Console.WriteLine("Not record found!");
             if (index != -1) Console.WriteLine("The student with ID:{0} gets the highest score {1}.", st[index].stnumber, max);
+        }
+        //method to show min total score
+        public void showmin(student[] st, int itemcount)
+        {
+            float min = st[0].total;
+            int index = 0;
+            if (itemcount >= 2)
+            {
+                for (int j = 0; j < itemcount - 1; ++j)
+                    if (min > st[j + 1].total)
+                    {
+                        min = st[j + 1].total;
+                        index = j + 1;
+                    }
+            }
+            else if (itemcount == 1)
+            {
+                index = 0;
+                min = st[0].total;
+            }
+            else Console.WriteLine("No record found!");
+            if (index != -1) Console.WriteLine("The student with ID:{0} gets the lowest score {1}.", st[index].stnumber, min);
+        }
+        //method to find record
+        public void find(student[] st, int itemcount)
+        {
+            int id;
+            Console.Write("Enter student's ID:");
+            id = int.Parse(Console.ReadLine());
+            int index = search(st, id, itemcount);
+            if (index != -1)
+            {
+                Console.Write("{0,-5}{1,-20}{2,-5}", st[index].stnumber, st[index].stname, st[index].sex);
+                Console.Write("{0,-5}{1,-5}{2,-5}", st[index].quizz1, st[index].quizz2, st[index].assigment);
+                Console.Write("{0,-5}{1,-5}{2,-5}", st[index].midterm, st[index].final, st[index].total);
+                Console.WriteLine();
+            }
+            else Console.WriteLine("The record doesn't exits.");
+        }
+        public void bubblesort(student[] dataset, int n)
+        {
+            int i, j;
+            for (i = 0; i < n; i++)
+                for (j = n - 1; j > i; j--)
+                    if (dataset[j].total < dataset[j - 1].total)
+                    {
+                        student temp = dataset[j];
+                        dataset[j] = dataset[j - 1];
+                        dataset[j - 1] = temp;
+                    }
         }
         public void print()
         {
