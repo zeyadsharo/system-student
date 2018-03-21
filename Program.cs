@@ -18,6 +18,7 @@ namespace project_student1
         public float midterm;
         public float final;
         public float total;
+        static public int itemcount = -1;
         public student()
         {
             
@@ -44,15 +45,25 @@ namespace project_student1
             this.midterm = midterm;
             this.final = final;
             this.total = total;
-        }//end the prametrized constractor
-        
-       
+        }//end the prametrized constractor    
+       public void printInfo()
+        {
+            Console.WriteLine("Student number:"+ stnumber);
+            Console.WriteLine("Student Age:"+stage);
+            Console.WriteLine("Student sex:"+sex);
+            Console.WriteLine("Quizz1:");
+            Console.WriteLine("Quizz2:");
+            Console.WriteLine("assigment:"+assigment);
+            Console.WriteLine("Midterm:"+midterm);
+            Console.WriteLine("Final"+final);
+            Console.WriteLine("Total:"+total);    
+        }//end the print info
+
+
     }//end the class student 
     class Intial
     {
-        student[] st;
-        public int itemcount=-1;
-
+        student[] st=new student[30];
         public void displaymenu()
         {
             Console.WriteLine("======================================================\n                         MENU                         \n======================================================");
@@ -66,7 +77,6 @@ namespace project_student1
             Console.WriteLine(" 8.Find a student by ID");
             Console.WriteLine(" 9.Sort students by TOTAL");
             //create an array to store only 30 students'records for testing.
-            int itemcount = 0;
             int choice;
             string confirm;
 
@@ -79,7 +89,7 @@ namespace project_student1
                 {
 
                     case 1:
-                        add(ref itemcount);
+                        add(ref student.itemcount);
                         break;
                     //case 2:
                     //    delete(st, ref itemcount);
@@ -153,11 +163,15 @@ namespace project_student1
             //++this.itemcount;
             st[itemcount] = new student(stnumber, stage, stname, sex, quizz1, quizz2, assigment, midterm, final, total);
         }
-
-
-
-
-
+       public void print()
+        {
+            Console.WriteLine(student.itemcount);
+            for (int i = 0; i < student.itemcount; i++)
+            {
+                st[i].printInfo();
+            }
+        }
+        
     } //end the intial student 
     class Program
     {
@@ -166,6 +180,7 @@ namespace project_student1
             student s1 = new student();
             Intial I1 = new Intial();
             I1.displaymenu();
+            I1.print();
             Console.ReadKey();
         }
     }
