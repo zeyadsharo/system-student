@@ -383,10 +383,39 @@ namespace project_student1
             st[0].printInfo();
         }
     } //end the intial student 
+    class SchoolInformation   //////////////
+    {
+        // return a string consisting of four or five lines of school infromation
+        public static string school = "Zaxo College";
+        public static string motto = "Your Success is Our Success";
+        public static string colors = "Red and Black";
+        public static string master = "Jack livas";
+        public SchoolInformation()
+        {
+            SchoolInformation.PrintSchoolInformation();
+        }
+        public static void PrintSchoolInformation()
+        {
+            string information = "\n\n" + "~  College Name:  " + school + "                        ~\n" +
+                                 "~  Motto:         " + motto + "         ~\n" +
+                                 "~  School Colors: " + colors + "                       ~\n" +
+                                 "~  School Master: " + master + "                          ~";
+            Console.WriteLine(information);
+        }
+        public SchoolInformation(string school, string motto, string colors, string master)
+        {
+            SchoolInformation.school = school;
+            SchoolInformation.motto = motto;
+            SchoolInformation.colors = colors;
+            SchoolInformation.master = master;
+            SchoolInformation.PrintSchoolInformation();
+        }
+    }
     class Program
     {
         static void Main(string[] args)
         {
+            SchoolInformation S1 = new SchoolInformation("UOZ", "noroz", "red", "zeyad sharo");
             student s1 = new student();
             Intial I1 = new Intial();
             I1.displaymenu();
