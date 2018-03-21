@@ -95,12 +95,12 @@ namespace project_student1
                     case 2:
                         delete(st, ref itemcount);
                         break;
-                    //case 3:
-                    //    update(st, itemcount);
-                    //    break;
-                    //case 4:
-                    //    viewall(st, itemcount);
-                    //    break;
+                    case 3:
+                        update(st, itemcount);
+                        break;
+                    case 4:
+                        viewall(st, itemcount);
+                        break;
                     //case 5:
                     //    average(st, itemcount);
                     //    break;
@@ -183,11 +183,9 @@ namespace project_student1
             st[index].midterm = 0;
             st[index].final = 0;
             st[index].total = 0;
-
         }
         public void delete(student[] st, ref int itemcount)
         {
-
             int id;
             int index;
             if (itemcount > 0)
@@ -216,6 +214,83 @@ namespace project_student1
                 else Console.WriteLine("The record doesn't exist.Check the ID and try again.");
             }
             else Console.WriteLine("No record to delete");
+        }
+        public void viewall(student[] st, int itemcount)
+        {
+
+            int i = 0;
+
+            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}{6,-5}{7,-5}{8}(column index)", "0", "1", "2", "3", "4", "5", "6", "7", "8");
+            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}{6,-5}{7,-5}{8,-5}", "ID", "NAME", "SEX", "Q1", "Q2", "As", "Mi", "Fi", "TOTAL");
+            Console.WriteLine("=====================================================");
+            while (i < itemcount)
+            {
+                if (st[i].stnumber != -1)
+                {
+                    Console.Write("{0,-5}{1,-20}{2,-5}", st[i].stnumber, st[i].stname, st[i].sex);
+                    Console.Write("{0,-5}{1,-5}{2,-5}", st[i].quizz1, st[i].quizz2, st[i].assigment);
+                    Console.Write("{0,-5}{1,-5}{2,-5}", st[i].midterm, st[i].final, st[i].total);
+                    Console.Write("\n");
+                }
+                i = i + 1;
+            }
+        }
+        public void update(student[] st, int itemcount)
+        {
+            int id;
+            int column_index;
+            Console.Write("Enter student's ID:");
+            id = int.Parse(Console.ReadLine());
+            Console.WriteLine("1.Name 2.Sex 3. quizz1 4.quizz2 5.assigment score 6.midterm score 7.final score 8.Age");
+            Console.Write("Which field you want to update(1-8)?:");
+            column_index = int.Parse(Console.ReadLine());
+            int index = search(st, id, itemcount);
+            if ((index != -1) && (itemcount != 0))
+            {
+                if (column_index == 1)
+                {
+                    Console.Write("Enter student's Name:");
+                    st[index].stname = Console.ReadLine().ToString();
+                }
+                else if (column_index == 2)
+                {
+                    Console.Write("Enter student's Sex(F or M):");
+                    st[index].sex = Console.ReadLine().ToString();
+                }
+                else if (column_index == 3)
+                {
+                    Console.Write("Enter student's quizz1 score:");
+                    st[index].quizz1 = float.Parse(Console.ReadLine());
+                }
+                else if (column_index == 4)
+                {
+                    Console.Write("Enter student's quizz2 score:");
+                    st[index].quizz2 = float.Parse(Console.ReadLine());
+                }
+                else if (column_index == 5)
+                {
+                    Console.Write("Enter student's assigment score:");
+                    st[index].assigment = float.Parse(Console.ReadLine());
+                }
+                else if (column_index == 6)
+                {
+                    Console.Write("Enter student's midterm score:");
+                    st[index].midterm = float.Parse(Console.ReadLine());
+                }
+                else if (column_index == 7)
+                {
+                    Console.Write("Enter student's final score:");
+                    st[index].final = float.Parse(Console.ReadLine());
+                }
+                else if (column_index == 8)
+                {
+                    Console.Write("Enter student's Age:");
+                    st[index].stage = int.Parse(Console.ReadLine());
+                }
+                else Console.WriteLine("Invalid column index");
+                st[index].total = st[index].quizz1 + st[index].quizz2 + st[index].assigment + st[index].midterm + st[index].final + st[index].stage;
+            }
+            else Console.WriteLine("The record deosn't exits.Check the ID and try again.");
         }
         public void print()
         {
