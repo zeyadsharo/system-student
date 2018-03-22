@@ -59,9 +59,8 @@ namespace project_student1
             Console.WriteLine("Total:"+total);    
         }//end the print info
 
-
     }//end the class student 
-    class Intial
+    class Initial
     {
         student[] st = new student[30];
           public  int itemcount = 0;
@@ -411,15 +410,299 @@ namespace project_student1
             SchoolInformation.PrintSchoolInformation();
         }
     }
+	 class Teacher
+    {
+        public string teachId;
+        public string teachname;
+        public int teachAge;
+        public string teachDept;
+        public string teachingstage;
+        public string teachsex;
+        public Teacher()
+        {
+            this.teachId = null;
+            this.teachname = null;
+            this.teachAge = -1;
+            this.teachDept = null;
+            this.teachingstage = null;
+            this.teachsex = null;
+
+        }
+        public Teacher(string teachId, string teachname, int teachAge, string teachDept, string teachingstage, string teachsex)
+        {
+            this.teachId = teachId;
+            this.teachname = teachname;
+            this.teachAge = teachAge;
+            this.teachDept = teachDept;
+            this.teachingstage = teachingstage;
+            this.teachsex = teachsex;
+        }
+    }
+	 class InitialTeacher
+    {
+        Teacher[] te = new Teacher[20];
+        public int itemcount = 0;
+        public void displaymenu()
+        {
+            Console.WriteLine("======================================================\n                         MENU                         \n======================================================");   
+            Console.WriteLine(" 1.Add Teacher records");
+            Console.WriteLine(" 2.Delete Teacher records");
+            Console.WriteLine(" 3.Update Teacher records");
+            Console.WriteLine(" 4.View all Teacher records");
+            Console.WriteLine(" 5.Show the Teacher Sex");
+            Console.WriteLine(" 6.Show the Teacher Age");
+            Console.WriteLine(" 7.Show the Teacher teaching stage");
+            Console.WriteLine(" 8.Find a Teacher by ID");
+            Console.WriteLine(" 9.Show the Teacher Department");
+            Console.WriteLine(" 10.Clean the Teacher information");
+            
+
+                //create an array to store only 20 Teachers'records for testing.
+                //show menu
+                int choice;
+                string confirm;
+
+                do
+                {
+                    Console.Write("Enter your choice(1-8):");
+                    choice = int.Parse(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            add( ref itemcount);
+                            break;
+                        case 2:
+                        delete(te, ref itemcount);
+                        break;
+                      case 3:
+                        update(te, itemcount);
+                        break;
+                      case 4:
+                       viewall(te, itemcount);
+                        break;
+                    case 5:
+                        showteachsex(te, itemcount);
+                        break;
+                    case 6:
+                        showteachAge(te, itemcount);
+                        break;
+                    case 7:
+                        showteachingstage(te, itemcount);
+                        break;
+                    case 8:
+                        ID(te, itemcount);
+                        break;
+                    case 9:
+                        showteachDept(te, itemcount);
+                        break;
+                    case 10:
+                        clean(te, itemcount);
+                        break;
+
+                        //default: Console.WriteLine("invalid"); break;
+
+                }
+                Console.Write("Press y or Y to continue:");
+                    confirm = Console.ReadLine().ToString();
+                } while (confirm == "y" || confirm == "Y");
+        }
+        //method add/append a new record
+        static int search(Teacher[] te, string id, int itemcount)
+        {
+            int found = -1;
+            for (int i = 0; i < itemcount && found == -1; i++)
+            {
+                if (te[i].teachId == id)
+                    found = i;
+                else
+                    found = -1;
+            }
+            return found;
+        }
+        public void add( ref int itemcount)
+    {
+        Again:
+        Console.WriteLine();
+        Console.Write("Enter Teacher's ID:");
+        string teachId = Console.ReadLine().ToString();
+        if (search(te, teachId, itemcount)!=-1)
+        {
+            Console.WriteLine("This ID already exists.");
+            goto Again;
+        }
+        Console.Write("Enter Teacher's Name:");
+        string teachname = Console.ReadLine();
+        Console.Write("Enter Teacher's Sex(F or M):");
+       string teachsex = Console.ReadLine();
+        Console.Write("Enter Teacher's Age:");
+      int teachAge = int.Parse(Console.ReadLine());
+        Console.Write("Enter student's dept:");
+      string teachDept = Console.ReadLine();
+        Console.Write("Enter student's teaching stage:");
+        string teachingstage = Console.ReadLine();
+        te[itemcount] = new Teacher(teachId, teachname, teachAge, teachDept, teachingstage, teachsex);
+        ++itemcount;
+    }
+        static void delete(Teacher[] te, ref int itemcount)
+        {
+            string id;
+            int index;
+            if (itemcount > 0)
+            {
+                Console.Write("Enter Teacher's ID:");
+                id = Console.ReadLine();
+                index = search(te, id.ToString(), itemcount);
+                if ((index != -1) && (itemcount != 0))
+                {
+                    if (index == (itemcount - 1))
+                    {
+                        clean(te, index);
+                        --itemcount;
+                        Console.WriteLine("The record was deleted.");
+                    }
+                    else
+                    {
+                        for (int i = index; i < itemcount - 1; i++)
+                        {
+                            te[i] = te[i + 1];
+                            clean(te, itemcount);
+                            --itemcount;
+                        }
+                    }
+                }
+                else Console.WriteLine("The record doesn't exist.Check the ID and try again.");
+            }
+            else Console.WriteLine("No record to delete");
+        }
+
+        static void clean(Teacher[] te, int index)
+        {
+            te[index].teachId = null;
+            te[index].teachname = null;
+            te[index].teachsex = null;
+            te[index].teachAge = -1;
+            te[index].teachDept = null;
+            te[index].teachingstage = null;
+        }
+       public void update(Teacher[] te, int itemcount)
+        {
+            string id;
+            int column_index;
+            Console.Write("Enter Teacher's ID:");
+            id = Console.ReadLine();
+            Console.WriteLine("1.Name 2.sex 3.Age 4.Dept 5.Stage");
+            Console.Write("Which field you want to update(1-5)?:");
+            column_index = int.Parse(Console.ReadLine());
+
+            int index = search(te, id.ToString(), itemcount);
+
+            if ((index != -1) && (itemcount != 0))
+            {
+                if (column_index == 1)
+                {
+                    Console.Write("Enter Teacher's Name:");
+
+                    te[index].teachname = Console.ReadLine().ToString();
+                }
+
+                else if (column_index == 2)
+                {
+                    Console.Write("Enter Teacher's Sex(F or M):");
+                    te[index].teachsex = Console.ReadLine().ToString();
+                }
+                else if (column_index == 3)
+                {
+                    Console.Write("Enter Teacher's Age:");
+                    te[index].teachAge = int.Parse(Console.ReadLine());
+                }
+                else if (column_index == 4)
+                {
+                    Console.Write("Enter Teacher's dept:");
+                    te[index].teachDept = Console.ReadLine().ToString();
+                }
+                else if (column_index == 5)
+                {
+                    Console.Write("Enter Teacher's teaching stage:");
+                    te[index].teachingstage = Console.ReadLine().ToString();
+                }
+            }
+            else Console.WriteLine("The record deosn't exits.Check the ID and try again.");
+        }
+        public static string ID(Teacher[] te, int itemcount)
+        {
+           
+            if (te[itemcount].teachId == null)
+            {
+                Console.WriteLine("there is no teacher yet !!!");
+            }
+            return te[itemcount].teachId;
+        }
+        public static string showteachDept(Teacher[] te, int itemcount)
+        {
+            
+            if (te[itemcount].teachDept == null)
+            {
+                Console.WriteLine("there is no teacher yet !!!");
+            }
+            return te[itemcount].teachDept;
+        }
+
+        public static string showteachingstage(Teacher[] te, int itemcount)
+        {
+          
+            if (te[itemcount].teachingstage == null)
+            {
+                Console.WriteLine("there is no teacher yet !!!");
+            }
+            return te[itemcount].teachingstage;
+        }
+
+        public static int showteachAge(Teacher[] te, int itemcount)
+        {
+            
+            if (te[itemcount].teachAge == -1)
+            {
+                Console.WriteLine("there is no teacher yet !!!");
+            }
+            return te[itemcount].teachAge;
+        }
+        public static string showteachsex(Teacher[] te, int itemcount)
+        {
+            
+            if (te[itemcount].teachsex == null)
+            {
+                Console.WriteLine("there is no teacher yet !!!");
+            }
+            return te[itemcount].teachsex;
+        }
+        public void viewall(Teacher[] te, int itemcount)
+        {
+            int i = 0;
+            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}(column index)", "0", "1", "2", "3", "4", "5");
+            Console.WriteLine("{0,-5}{1,-20}{2,-5}{3,-5}{4,-5}{5,-5}", "ID", "NAME", "SEX", "Age", "dept", "stage");
+            Console.WriteLine("=====================================================");
+            while (i < itemcount)
+            {
+                if (te[i].teachId != null)
+                {
+                    Console.Write("{0,-5}{1,-20}{2,-5}", te[i].teachId, te[i].teachname, te[i].teachsex);
+                    Console.Write("{0,-5}{1,-5}{2,-5}", te[i].teachAge, te[i].teachDept, te[i].teachingstage);
+                    Console.Write("\n");
+                }
+                i = i + 1;
+            }
+        }
+    } //end the initial student   
     class Program
     {
         static void Main(string[] args)
         {
             SchoolInformation S1 = new SchoolInformation("UOZ", "noroz", "red", "zeyad sharo");
             student s1 = new student();
-            Intial I1 = new Intial();
+            Initial I1 = new Intial();
             I1.displaymenu();
-            I1.print();
+            InitialTeacher I1T=new IntialTeacher();
+            I1T.displaymenu(); 
             Console.ReadKey();
         }
     }
