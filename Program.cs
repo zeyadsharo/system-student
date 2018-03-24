@@ -45,20 +45,7 @@ namespace project_student1
             this.midterm = midterm;
             this.final = final;
             this.total = total;
-        }//end the prametrized constractor    
-       public void printInfo()
-        {
-            Console.WriteLine("Student number:"+ stnumber);
-            Console.WriteLine("Student Age:"+stage);
-            Console.WriteLine("Student sex:"+sex);
-            Console.WriteLine("Quizz1:");
-            Console.WriteLine("Quizz2:");
-            Console.WriteLine("assigment:"+assigment);
-            Console.WriteLine("Midterm:"+midterm);
-            Console.WriteLine("Final"+final);
-            Console.WriteLine("Total:"+total);    
-        }//end the print info
-
+        }//end the prametrized constractor   
     }//end the class student 
     class Initial
     {
@@ -376,11 +363,7 @@ namespace project_student1
                         dataset[j] = dataset[j - 1];
                         dataset[j - 1] = temp;
                     }
-        }
-        public void print()
-        {
-            st[0].printInfo();
-        }
+	}
     } //end the intial student 
 	 class Teacher
     {
