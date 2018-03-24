@@ -382,34 +382,6 @@ namespace project_student1
             st[0].printInfo();
         }
     } //end the intial student 
-    class SchoolInformation   //////////////
-    {
-        // return a string consisting of four or five lines of school infromation
-        public static string school = "Zaxo College";
-        public static string motto = "Your Success is Our Success";
-        public static string colors = "Red and Black";
-        public static string master = "Jack livas";
-        public SchoolInformation()
-        {
-            SchoolInformation.PrintSchoolInformation();
-        }
-        public static void PrintSchoolInformation()
-        {
-            string information = "\n\n" + "~  College Name:  " + school + "                        ~\n" +
-                                 "~  Motto:         " + motto + "         ~\n" +
-                                 "~  School Colors: " + colors + "                       ~\n" +
-                                 "~  School Master: " + master + "                          ~";
-            Console.WriteLine(information);
-        }
-        public SchoolInformation(string school, string motto, string colors, string master)
-        {
-            SchoolInformation.school = school;
-            SchoolInformation.motto = motto;
-            SchoolInformation.colors = colors;
-            SchoolInformation.master = master;
-            SchoolInformation.PrintSchoolInformation();
-        }
-    }
 	 class Teacher
     {
         public string teachId;
@@ -692,12 +664,61 @@ namespace project_student1
                 i = i + 1;
             }
         }
-    } //end the initial student   
+		
+    } //end the initial student
+    class SchoolInformation   //////////////
+    {
+        // return a string consisting of four or five lines of school infromation
+
+        public static string school = null;
+        public static string motto = null;
+        public static string colors = null;
+        public static string master = null;
+        public static int year = 0;
+        public SchoolInformation()
+        {
+            Console.Write("Enter the school name : ");
+            school = Console.ReadLine();
+            Console.Write("Enter the school motto : ");
+            motto = Console.ReadLine();
+            Console.Write("Enter the school Uniforms Colors : ");
+            colors = Console.ReadLine();
+            Console.Write("Enter the school master name : ");
+            master = Console.ReadLine();
+            Console.Write("Enter The school first year was established : ");
+            year =int.Parse (Console.ReadLine());
+            SchoolInformation.PrintSchoolInformation();
+        }
+       
+        public SchoolInformation(string school, string motto, string colors, string master,int year)
+        {
+            SchoolInformation.school = school;
+            SchoolInformation.motto = motto;
+            SchoolInformation.colors = colors;
+            SchoolInformation.master = master;
+            SchoolInformation.year = year;
+            SchoolInformation.PrintSchoolInformation();
+        }
+        public static void PrintSchoolInformation()
+        {
+            string information = "\n\n" + "#  The Schoole Name:  " + school + 
+"\n" +
+                                 "#  The SchooleMotto:         " + motto + "\n" 
++
+                                 "#  The Schoole Uniforms Colors: " + colors + 
+"\n" +
+                                 "#  The School First Year was established : " +
+year +"\n"+
+                                 "#  The School Master: " + master;
+            Console.WriteLine(information);
+        }
+    }	
     class Program
     {
         static void Main(string[] args)
         {
-            SchoolInformation S1 = new SchoolInformation("UOZ", "noroz", "red", "zeyad sharo");
+            SchoolInformation school = new SchoolInformation();
+            SchoolInformation.PrintSchoolInformation();
             student s1 = new student();
             Initial I1 = new Intial();
             I1.displaymenu();
